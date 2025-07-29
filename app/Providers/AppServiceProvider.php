@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Register custom services, helpers, or singletons here if needed
     }
 
     /**
@@ -19,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Fix for MySQL older versions (limits index key length)
+        Schema::defaultStringLength(191);
+
+        // Use Tailwind for pagination styling (recommended for Breeze)
+        Paginator::useTailwind();
     }
 }
