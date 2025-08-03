@@ -7,87 +7,151 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    <style>
-        body {
-            background-image: url("D:\Last web project\StyleStore1\public\images\Screenshot 2025-07-31 110130.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-    </style>
+    
+   <style>
+    body {
+        background: url('{{ asset('images/bg/ladies-bg2.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
 </head>
-<body class="bg-pink-100 text-gray-800 font-sans">
+<body class="bg-pink-100 text-pink-700 font-sans">
 
     <!-- Header -->
-    <header class="bg-pink-200 bg-opacity-90 shadow-md">
+    <header class="bg-pink shadow-md backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-pink-500 animate-pulse">Style Vision</h1>
-            <nav class="hidden md:flex items-center space-x-6">
-                <a href="{{ route('home') }}" class="text-gray-600 hover:text-pink-500">Home</a>
-                <a href="{{ route('gents.index') }}" class="text-gray-600 hover:text-pink-500">Gents</a>
-                <a href="{{ route('ladies.index') }}" class="text-pink-500 font-semibold underline">Ladies</a>
-                <a href="{{ route('accessories.index') }}" class="text-gray-600 hover:text-pink-500">Accessories</a>
-                <a href="{{ route('contact') }}" class="text-gray-600 hover:text-pink-500">Contact</a>
-                <span class="mx-2 text-gray-300">|</span>
-                <a href="{{ route('login') }}"><i class="ri-user-line text-xl text-gray-600 hover:text-pink-500"></i></a>
-                <a href="{{ route('register') }}"><i class="ri-user-add-line text-xl text-gray-600 hover:text-pink-500"></i></a>
+            <h1 class="text-2xl font-bold text-pink-600 animate-pulse">Style Vision</h1>
+            <nav class="hidden md:flex items-center space-x-6 text-pink-500">
+                <a href="{{ route('home') }}" class="hover:text-pink-700">Home</a>
+                <a href="{{ route('gents.index') }}" class="hover:text-pink-700">Gents</a>
+                <a href="{{ route('ladies.index') }}" class="font-semibold text-2xl text-white">Ladies</a>
+                <a href="{{ route('accessories.index') }}" class="hover:text-pink-700">Accessories</a>
+                <a href="{{ route('contact') }}" class="hover:text-pink-700">Contact</a>
+                <span class="mx-2 text-gray-400">|</span>
+                <a href="{{ route('login') }}"><i class="ri-user-line text-xl hover:text-pink-700"></i></a>
+                <a href="{{ route('register') }}"><i class="ri-user-add-line text-xl hover:text-pink-700"></i></a>
             </nav>
         </div>
     </header>
 
     <!-- Hero -->
-    <section class="text-center py-16 backdrop-blur-sm bg-white/70">
-        <h1 class="text-4xl font-bold mb-4 text-pink-600 animate-fade-in-down">Ladies Collection</h1>
-        <p class="text-lg text-gray-700 mb-6">Elegant • Bold • Trending — Your wardrobe upgrade awaits.</p>
+    <section class="text-center py-10">
+        <h1 class="text-4xl font-bold text-pink-600 animate-fade-in-down">Ladies Collection</h1>
+        <p class="text-lg text-white mt-2 animate-fade-in-up">Elegant • Bold • Beautiful</p>
     </section>
 
-    <!-- Collection Grid -->
-    <section class="py-12 max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center text-pink-600 mb-12 animate-fade-in-up">Explore Categories</h2>
+    <!-- Sections -->
+    @php
+        $sections = ['T-Shirts', 'Blouses', 'Frocks', 'Denims'];
+    @endphp
 
-        <!-- Categories -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    @foreach ($sections as $section)
+    <section class="py-8 px-4 max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-pink-600 border-b border-pink-300 pb-2">{{ $section }}</h2>
 
-            <!-- Blouses -->
-            <div class="bg-white bg-opacity-90 rounded-xl shadow-lg p-4 hover:scale-105 transition-transform duration-300 text-center animate-fade-in-up">
-                <img src="https://via.placeholder.com/300x300?text=Blouse" class="rounded-lg mb-4" alt="Blouse">
-                <h3 class="text-lg font-semibold text-pink-500">Chiffon Blouse</h3>
-                <p class="text-gray-700">LKR 3,200</p>
+        <div class="grid grid-cols-12 gap-4">
+
+            {{-- Row 1: 4 normal cards --}}
+            @for ($i = 1; $i <= 4; $i++)
+                <div class="col-span-3  rounded-lg shadow-md hover:scale-105 transition-transform duration-300 animate-fade-in-up">
+                    <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-48 object-cover rounded-t">
+                    <div class="p-2 text-center">
+                        <h3 class="font-semibold">Model {{ $i }}</h3>
+                        <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                    </div>
+                </div>
+            @endfor
+
+            {{-- Row 2: merge 1-2 and 3-4 --}}
+            @php $i = 5; @endphp
+            <div class="col-span-6  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-64 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
+            </div>
+            @php $i++; @endphp
+            <div class="col-span-3  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-48 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
+            </div>
+            @php $i++; @endphp
+            <div class="col-span-3  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-48 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
             </div>
 
-            <!-- T-Shirts -->
-            <div class="bg-white bg-opacity-90 rounded-xl shadow-lg p-4 hover:scale-105 transition-transform duration-300 text-center animate-fade-in-up delay-100">
-                <img src="https://via.placeholder.com/300x300?text=T-Shirt" class="rounded-lg mb-4" alt="T-shirt">
-                <h3 class="text-lg font-semibold text-pink-500">Graphic Tee</h3>
-                <p class="text-gray-700">LKR 2,400</p>
+            {{-- Row 3: normal, merged, normal --}}
+            @php $i++; @endphp
+            <div class="col-span-3  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-48 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
+            </div>
+            @php $i++; @endphp
+            <div class="col-span-6  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-64 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
+            </div>
+            @php $i++; @endphp
+            <div class="col-span-3  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-48 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
             </div>
 
-            <!-- Jeans -->
-            <div class="bg-white bg-opacity-90 rounded-xl shadow-lg p-4 hover:scale-105 transition-transform duration-300 text-center animate-fade-in-up delay-200">
-                <img src="https://via.placeholder.com/300x300?text=Jeans" class="rounded-lg mb-4" alt="Jeans">
-                <h3 class="text-lg font-semibold text-pink-500">High Waist Jeans</h3>
-                <p class="text-gray-700">LKR 4,950</p>
+            {{-- Row 4: normal, merged (last 2) --}}
+            @php $i++; @endphp
+            <div class="col-span-3  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-48 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
             </div>
-
-            <!-- Sarees -->
-            <div class="bg-white bg-opacity-90 rounded-xl shadow-lg p-4 hover:scale-105 transition-transform duration-300 text-center animate-fade-in-up delay-300">
-                <img src="https://via.placeholder.com/300x300?text=Saree" class="rounded-lg mb-4" alt="Saree">
-                <h3 class="text-lg font-semibold text-pink-500">Silk Saree</h3>
-                <p class="text-gray-700">LKR 6,800</p>
+            @php $i++; @endphp
+            <div class="col-span-6  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-64 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
             </div>
-
+            @php $i++; @endphp
+            <div class="col-span-3  rounded-lg shadow-md hover:scale-105 transition duration-300 animate-fade-in-up">
+                <img src="{{ asset('images/ladies/' . strtolower(str_replace(' ', '_', $section)) . "/$i.jpg") }}" class="w-full h-48 object-cover rounded-t">
+                <div class="p-2 text-center">
+                    <h3 class="font-semibold">Model {{ $i }}</h3>
+                    <p class="text-sm">LKR {{ 2900 + $i * 100 }}</p>
+                </div>
+            </div>
         </div>
     </section>
+    @endforeach
 
     <!-- Footer -->
-    <footer class="bg-pink-200 bg-opacity-80 text-gray-700 mt-16">
+    <footer class="bg-white text-pink-600 mt-16 border-t border-pink-200">
         <div class="max-w-7xl mx-auto px-4 py-8 grid md:grid-cols-3 gap-6">
             <div>
-                <h4 class="text-lg font-semibold mb-2 text-pink-600">Style Vision</h4>
-                <p>Your destination for modern, affordable fashion.</p>
+                <h4 class="text-lg font-semibold mb-2">Style Vision</h4>
+                <p>Designed for modern elegance.</p>
             </div>
             <div>
-                <h4 class="text-lg font-semibold mb-2 text-pink-600">Quick Links</h4>
+                <h4 class="text-lg font-semibold mb-2">Quick Links</h4>
                 <ul class="space-y-1">
                     <li><a href="{{ route('home') }}" class="hover:text-pink-500">Home</a></li>
                     <li><a href="{{ route('gents.index') }}" class="hover:text-pink-500">Gents</a></li>
@@ -96,7 +160,7 @@
                 </ul>
             </div>
             <div>
-                <h4 class="text-lg font-semibold mb-2 text-pink-600">Contact Us</h4>
+                <h4 class="text-lg font-semibold mb-2">Contact</h4>
                 <p>Email: support@stylevision.com</p>
                 <p>Phone: +94 123 456 789</p>
                 <div class="flex space-x-4 mt-2">
@@ -106,32 +170,9 @@
                 </div>
             </div>
         </div>
-        <div class="text-center text-sm text-gray-500 mt-4 pb-4">&copy; {{ now()->year }} Style Vision. All rights reserved.</div>
+        <div class="text-center text-sm text-pink-400 mt-4 pb-4">&copy; {{ now()->year }} Style Vision. All rights reserved.</div>
     </footer>
-
-    <!-- Tailwind Animations Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    animation: {
-                        'fade-in-down': 'fadeInDown 1s ease-out',
-                        'fade-in-up': 'fadeInUp 1s ease-out'
-                    },
-                    keyframes: {
-                        fadeInDown: {
-                            '0%': { opacity: 0, transform: 'translateY(-20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: 0, transform: 'translateY(20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    
 
 </body>
 </html>
